@@ -26,7 +26,6 @@ export default function RootLayout({
         />
       </head>
       <body className={inter.className}>{children}</body>
-      <script src="//unpkg.com/react-globe.gl"></script>
     </html>
   );
 }
