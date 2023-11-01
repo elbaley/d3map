@@ -1,10 +1,11 @@
 "use client";
 import { MapLegend } from "@/MapLegend";
-const MapComponent = dynamic(() => import("./Map"), {
+import dynamic from "next/dynamic";
+
+const MapComponent = dynamic(() => import("./Map").then((mod) => mod.Map), {
   ssr: false,
 });
-import dynamic from "next/dynamic";
-const MapThreePage = () => {
+const MapTwoPage = () => {
   return (
     <div className='h-screen relative'>
       <div className='shadow-lg p-2 bg-white absolute top-20 left-5 h-[300px] z-30 w-[250px]'>
@@ -27,4 +28,4 @@ const MapThreePage = () => {
   );
 };
 
-export default MapThreePage;
+export default MapTwoPage;

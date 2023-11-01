@@ -19,7 +19,7 @@ const ICON = icon({
   iconSize: [32, 32],
 });
 
-export const Map = () => {
+const Map = () => {
   const [mapContext, setMapContext] = useState();
   useEffect(() => {
     if (mapContext) {
@@ -91,3 +91,4 @@ const tileLayer = {
   attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a>',
   url: "https://{s}.basemaps.cartocdn.com/rastertiles/dark_all/{z}/{x}/{y}.png",
 };
+export default Map;
