@@ -1,13 +1,8 @@
 "use client";
 import L, { LatLngExpression } from "leaflet";
-import {
-  MapContainer,
-  Marker,
-  Popup,
-  TileLayer,
-  Polyline,
-} from "react-leaflet";
+import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
+import "leaflet.motion/dist/leaflet.motion.js";
 import "leaflet-easyprint";
 import MarkerClusterGroup from "react-leaflet-cluster";
 import { icon } from "leaflet";
@@ -17,6 +12,7 @@ const ICON = icon({
   iconUrl: "/marker.png",
   iconSize: [32, 32],
 });
+
 export const Map = () => {
   const [mapContext, setMapContext] = useState();
   useEffect(() => {
@@ -28,12 +24,27 @@ export const Map = () => {
         sizeModes: ["Current", "A4Portrait", "A4Landscape"],
       }).addTo(mapContext);
       mapContext.attributionControl.setPrefix(""); // remove Ukraine flag!
+      routes.forEach((route) => {
+        const routePolylineInstance = L.motion.polyline(
+          [...route.route],
+          {
+            color: route.type === "POP" ? "orange" : "red",
+            dashArray: route.type === "POP" ? "10, 10" : "",
+            dashOffset: "0",
+          },
+          {
+            auto: true,
+            duration: 1000,
+          },
+        );
+        mapContext.addLayer(routePolylineInstance);
+      });
     }
   }, [mapContext]);
   const markerPosition = [40.993611, 28.825879]; // Comnet Datacenter
 
   // MAP CENTER POSITION
-  const center: LatLngExpression = [
+  const center = [
     (40.976204 + 53.63306) / 2,
     (28.814991 + 10.00537) / 2,
   ];
@@ -67,7 +78,7 @@ export const Map = () => {
           });
         }}
       >
-        <Marker icon={ICON} position={markerPosition as any}>
+        <Marker icon={ICON} position={markerPosition}>
           <Popup>
             Istanbul Server <br /> <strong>10 Gbit</strong>
           </Popup>
@@ -77,7 +88,7 @@ export const Map = () => {
             <Marker
               key={`route$-${route.name}-${route.type}`}
               icon={ICON}
-              position={route.markerPosition as any}
+              position={route.markerPosition}
             >
               <Popup>
                 {route.name} <br />
@@ -87,17 +98,6 @@ export const Map = () => {
           );
         })}
       </MarkerClusterGroup>
-      {routes.map((route) => {
-        return (
-          <Polyline
-            key={`polyline-${route.name}`}
-            positions={route.route as any}
-            color={route.type === "POP" ? "orange" : "red"}
-            dashArray={route.type === "POP" ? "10, 10" : ""}
-            dashOffset="0"
-          ></Polyline>
-        );
-      })}
     </MapContainer>
   );
 };

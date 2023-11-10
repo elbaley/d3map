@@ -26,15 +26,6 @@ export const routes = [
       [52.293509039072234, 4.945973616097394], // Equinix Amsterdam AM5
     ],
   },
-  // {
-  //   name: "Equinix Frankfurt FR5",
-  //   type: "POP",
-  //   markerPosition: [50.098780013401964, 8.632345816080926],
-  //   route: [
-  //     [40.993611, 28.825879], // Comnet Datacenter
-  //     [50.098780013401964, 8.632345816080926], // Equinix Frankfurt FR5
-  //   ],
-  // },
   {
     name: "Equinix Istanbul IL2",
     type: "POP",
@@ -83,9 +74,8 @@ export const routes = [
       [41.03809850838793, 28.932492548104705], // Istanbul PremierDC
     ],
   },
-
   {
-    name: "Istanbul Turknet/Ercan Han",
+    name: "Turknet",
     type: "POP2",
     markerPosition: [41.06800733226641, 29.005319712095787],
     route: [
